@@ -20,4 +20,7 @@ router.get('/login', user.getLogin);
 // POST users login
 router.post('/login', catchAsync(user.postLogin));
 
+// GET user logout
+router.get('/logout', catchAsync(user.getLogout));
+
 module.exports = router;

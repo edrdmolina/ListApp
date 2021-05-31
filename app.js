@@ -1,12 +1,14 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const mongoose = require('mongoose');
+const engine = require('ejs-mate');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
 // MONGOOSE CONNECTION
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/store-list';
@@ -23,9 +25,10 @@ db.once('open', function() {
   console.log('Database connected!');
 });
 
-var app = express();
+const app = express();
 
 // view engine setup
+app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
