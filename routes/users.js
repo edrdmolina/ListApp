@@ -1,9 +1,23 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const {
+  catchAsync,
+} = require('../middleware')
+const user = require('../controller/user');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// GET landing page.
+router.get('/', user.landingPage);
+
+// GET user registration
+router.get('/register', user.getRegister);
+
+// POST use registrtion
+router.post('/register', catchAsync(user.postRegister));
+
+// GET users login. 
+router.get('/login', user.getLogin);
+
+// POST users login
+router.post('/login', catchAsync(user.postLogin));
 
 module.exports = router;
