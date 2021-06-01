@@ -1,3 +1,16 @@
 <% layout('layouts/boilerplate') -%>
 
 <h1>INDEX FOR ALL LIST</h1>
+<div class="container">
+    <div class="row justify-content-around">
+        <% for(let list of lists) { %> 
+        <div class="col-md-3 col-12">
+            <a href="/lists/<%= list._id %> ">
+                <div class="container">
+                    <%= list.title %> 
+                </div>
+            </a>
+        </div>
+        <% } %> 
+    </div>
+</div>
