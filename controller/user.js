@@ -49,6 +49,8 @@ module.exports = {
         })
     },
     getLogout(req, res, next) {
-        res.send('GET LOGOUT')
+        req.logout();
+        req.flash('success', 'You have successfully logged out');
+        res.redirect('/');
     }
 }
