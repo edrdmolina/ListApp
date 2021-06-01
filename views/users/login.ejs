@@ -1,3 +1,22 @@
 <% layout('layouts/boilerplate') -%>
 
 <h1>THE LOGIN PAGE</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" id="username" name="username" autofocus required aria-required="">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" id="password" name="password" required aria-required="">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p class="my-3">Don't have an account? <a href="/register">Register</a>.</p>
+        </div>
+    </div>
+</div>

@@ -7,14 +7,46 @@ module.exports = {
     getRegister(req, res, next) {
         res.render('users/register');
     },
-    postRegister(req, res, next) {
-        res.send('POST REGISTER')
+    async postRegister(req, res, next) {
+        try {
+            const { email, username, 
+                    password, confirmPassword 
+                } = req.body;            
+            if (password !== confirmPassword) {
+                req.flash('error', 'Passwords do not match!');
+                res.redirect('/register');
+            } else {
+                console.log(username);
+                console.log(email);
+                const user = await User.register(new User(req.body), req.body.password)
+                console.log(user);
+                req.login(user, err => {
+                    if(err) return next(err);
+                    req.flash('success', 'Welcome to Note List!')
+                    // const redirectUrl = req.session.returnTo || '/lists';
+                    delete req.session.returnTo;
+                    res.redirect('/lists');
+                })
+            }
+        } catch (e) {
+            req.flash('error', e.message);
+            res.redirect('/register');
+        }
+        
     },
     getLogin(req, res, next) {
         res.render('users/login');
     },
-    postLogin(req, res, next) {
-        res.send('POST LOGIN')
+    async postLogin(req, res, next) {
+        const { username, password } = req.body;
+        const { user, error } = await User.authenticate()(username, password);
+        if (!user && error) return next(error);
+        req.login(user, function (err) {
+            if (err) return next(err);
+            req.flash('success', `Welcome back, ${username}!`);
+            const redirectUrl = req.session.redirectTo || '/lists';
+            res.redirect(redirectUrl);
+        })
     },
     getLogout(req, res, next) {
         res.send('GET LOGOUT')

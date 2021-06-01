@@ -5,7 +5,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const engine = require('ejs-mate');
+const session = require('express-session');
+const passport = require('passport');
+const MongoStore = require('connect-mongo');
+const LocalStrategy = require('passport-local');
+const flash = require('connect-flash');
 
+const User = require('./models/user');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -37,6 +43,48 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+const secret = process.env.SECRET || 'thisisasecret';
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+      secret,
+  }
+});
+store.on('error', function(e) {
+  console.log('Session Store Error', e);
+})
+// Session configuration
+const sessionConfig = {
+  store,
+  name: 'userCookie',
+  secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      httpOnly: true,
+      // secure: true,
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 14,
+      maxAge: 1000 * 60 * 60 * 24 * 14,
+  }
+}
+app.use(session(sessionConfig));
+app.use(flash());
+// Seting up passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+// Flash middleware
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+})
 
 app.use('/lists', indexRouter);
 app.use('/', usersRouter);
