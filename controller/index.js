@@ -19,17 +19,35 @@ module.exports = {
     },
     async showList(req, res, next) {
         const { id } = req.params;
-        const list = await List.findById(id);
+        const list = await List.findById(id).populate('items')
         res.render('lists/show', { list });
     },
     async postNewItem(req, res, next) {
-        res.send('POST NEW ITEM TO LIST');
+        const { title, quantity } = req.body;
+        const { id } = req.params;
+        const list = await List.findById(id)
+        const item = await new Item({ title, quantity });
+        item.user = req.user._id;
+        list.items.push(item);
+        await item.save();
+        await list.save();
+        req.flash('success', 'Added a new item to this list!');
+        res.redirect(`/lists/${id}`,);
     },
     async deleteList(req, res, next) {
-        res.send('DELETE LIST');
+        const { id } = req.params;
+        await List.findByIdAndDelete(id);
+        req.flash('success', 'Successfully deleted list');
+        res.redirect('/lists');
     },
     async deleteItem(req, res, next) {
-        res.send('DELETE ITEM');
+        const { id, item_id } = req.params;
+        await List.findByIdAndUpdate(id, {
+            $pull: { items: item_id }
+        });
+        await Item.findByIdAndDelete(item_id);
+        req.flash('success', 'Item deleted from list');
+        res.redirect(`/lists/${id}`);
     }
 
 }

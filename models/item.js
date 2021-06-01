@@ -13,10 +13,6 @@ const ItemSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    list: {
-        type: Schema.Types.ObjectId,
-        ref: 'List'
-    },
 })
 
 module.exports = mongoose.model('Item', ItemSchema);

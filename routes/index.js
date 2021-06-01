@@ -24,6 +24,6 @@ router.post('/:id', catchAsync(list.postNewItem));
 router.delete('/:id', catchAsync(list.deleteList));
 
 // DELETE ITEM
-router.delete('/:id/:item_id/', catchAsync(list.deleteItem));
+router.get('/:id/:item_id/', catchAsync(list.deleteItem));
 
 module.exports = router;

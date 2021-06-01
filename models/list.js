@@ -12,9 +12,21 @@ const ListSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    items: {
+    items: [
+        {
         type: Schema.Types.ObjectId,
         ref: 'Item'
+        }
+    ]
+})
+
+ListSchema.post('findOneAndDelete', async function (doc) {
+    if(doc) {
+        await Item.remove({
+            _id: {
+                $in: doc.items
+            }
+        })
     }
 })
 

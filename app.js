@@ -10,6 +10,7 @@ const passport = require('passport');
 const MongoStore = require('connect-mongo');
 const LocalStrategy = require('passport-local');
 const flash = require('connect-flash');
+const methodOverride = require('method-override');
 
 const User = require('./models/user');
 
@@ -37,7 +38,7 @@ const app = express();
 app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use(methodOverride('_method'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
