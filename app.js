@@ -82,6 +82,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 // Flash middleware
 app.use((req, res, next) => {
+  // used to pass currentUser data to EJS
   res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');

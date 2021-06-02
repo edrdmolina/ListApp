@@ -4,12 +4,21 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <% if(!currentUser) { %> 
+      <div class="navbar-nav ml-auto">
+        <a class="nav-link" href="/register">Register</a>
+        <a class="nav-link" href="/login">Login</a>
+      </div>
+      <% } %>
+      <% if(currentUser) { %>
       <div class="navbar-nav">
         <a class="nav-link" href="/lists">Lists</a>
         <a class="nav-link" href="/lists/new">New Lists</a>
-        <a class="nav-link" href="/register">Register</a>
-        <a class="nav-link" href="/login">Login</a>
+      </div>
+      <div class="navbar-nav ml-auto">
+        <a class="nav-link" href="#">Settings</a>
         <a class="nav-link" href="/logout">Logout</a>
       </div>
+      <% } %>
     </div>
   </nav>
