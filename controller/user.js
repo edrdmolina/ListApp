@@ -16,10 +16,7 @@ module.exports = {
                 req.flash('error', 'Passwords do not match!');
                 res.redirect('/register');
             } else {
-                console.log(username);
-                console.log(email);
                 const user = await User.register(new User(req.body), req.body.password)
-                console.log(user);
                 req.login(user, err => {
                     if(err) return next(err);
                     req.flash('success', 'Welcome to Note List!')

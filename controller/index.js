@@ -3,7 +3,10 @@ const Item = require('../models/item');
 
 module.exports = {
     async getLists(req, res, next) {
-        const lists = await List.find({});
+        // pull user ID from logged in user.
+        const { id } = res.locals.currentUser;
+        const lists = await List.find({ user: { _id: id } }).populate('user');
+        console.log(lists);
         res.render('lists/index', { lists });
     },
     getNewList(req, res, next) {
