@@ -41,12 +41,18 @@ module.exports = {
         res.redirect('/lists');
     },
     async deleteItem(req, res, next) {
-        const { id, item_id } = req.params;
-        await List.findByIdAndUpdate(id, {
-            $pull: { items: item_id }
-        });
-        await Item.findByIdAndDelete(item_id);
-        req.flash('success', 'Item deleted from list');
+        const { id } = req.params;
+        if (req.body.deleteItems && req.body.deleteItems.length) {
+            let deleteItems = req.body.deleteItems;
+            
+            deleteItems.forEach(async item => {
+                await List.findByIdAndUpdate(id, {
+                    $pull: { items: item}
+                });
+                await Item.findByIdAndDelete(item);
+            })
+        }
+        req.flash('success', 'Succesffully deleted multiple items');
         res.redirect(`/lists/${id}`);
     }
 
