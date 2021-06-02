@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const {
-  catchAsync,
+  catchAsync, isValidPassword, changePassword,
 } = require('../middleware')
 const user = require('../controller/user');
 
@@ -23,5 +23,15 @@ router.post('/login', catchAsync(user.postLogin));
 
 // GET user logout
 router.get('/logout', catchAsync(user.getLogout));
+
+// GET user settings
+router.get('/settings', catchAsync(user.getSettings));
+
+// PUT user settings
+router.put('/settings',
+ catchAsync(isValidPassword),
+ catchAsync(changePassword),
+ catchAsync(user.putSettings)
+);
 
 module.exports = router;

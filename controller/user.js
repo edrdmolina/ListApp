@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const util = require('util');
 
 module.exports = {
     landingPage(req, res, next) {
@@ -49,5 +50,19 @@ module.exports = {
         req.logout();
         req.flash('success', 'You have successfully logged out');
         res.redirect('/');
+    },
+    getSettings(req, res, next) {
+        res.render('users/settings');
+    },
+    async putSettings(req, res, next) {
+        const { user } = res.locals;
+        const { username, email } = req.body;
+        if (username) user.username = username;
+        if (email) user.email = email;
+        await user.save()
+        const login = util.promisify(req.login.bind(req));
+        await login(user);
+        req.flash('success', 'You have succesffuly changed your user information.')
+        res.redirect('/settings');
     }
 }
