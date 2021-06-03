@@ -44,16 +44,29 @@ module.exports = {
     },
     async deleteItem(req, res, next) {
         const { id } = req.params;
-        if (req.body.deleteItems && req.body.deleteItems.length) {
-            let deleteItems = req.body.deleteItems;
-            for (let item of deleteItems) {
+        const { deleteItems } = req.body;
+        if (deleteItems) {
+            if ((typeof deleteItems) === 'string') {
                 await List.findByIdAndUpdate(id, {
                     $pull: { items: deleteItems}
                 });
                 await Item.findByIdAndDelete(deleteItems);
-                req.flash('success', 'Succesffully deleted items');
+                req.flash('success', 'Succesffully deleted item');
+                return res.redirect(`/lists/${id}`);
+            } else {
+                const deletions = deleteItems.length;
+                for(let i = 0; i < deletions; i++ ) {
+                    await List.findByIdAndUpdate(id, {
+                        $pull: { items: deleteItems[i]}
+                    });
+                    await Item.findByIdAndDelete(deleteItems[i]);
+                }
+                req.flash('success', 'Succesffully deleted multiple items');
                 return res.redirect(`/lists/${id}`);
             }
+        } else {
+            console.log('deleteItems is empty therefore undefined')
+            return res.redirect(`/lists/${id}`);
         }
     },
 }
