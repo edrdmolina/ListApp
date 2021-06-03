@@ -1,6 +1,10 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-light">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="/">
-      <i class="far fa-list-alt fa-2x text-white"></i>
+      <div class="row">
+        <div class="col">
+          <i class="far fa-list-alt fa-2x text-white"></i>
+        </div>
+      </div>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,19 +12,19 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <% if(!currentUser) { %> 
       <div class="navbar-nav ml-auto">
-        <a class="nav-link" href="/register">Register</a>
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link text-white" href="/register">Register</a>
+        <a class="nav-link text-white" href="/login">Login</a>
       </div>
       <% } %>
       <% if(currentUser) { %>
       <div class="navbar-nav">
-        <a class="nav-link ml-auto mr-2" href="/lists">Lists</a>
-        <a class="nav-link ml-auto mr-2" href="/lists/new">New Lists</a>
+        <a class="nav-link ml-auto mr-2 text-white" href="/lists">Lists</a>
+        <a class="nav-link ml-auto mr-2 text-white" href="/lists/new">New Lists</a>
       </div>
       <div class="navbar-nav ml-auto">
-        <a class="nav-link ml-auto mr-2" href="#">User: <%= currentUser.username %></a>
-        <a class="nav-link ml-auto mr-2" href="/settings">Settings</a>
-        <a class="nav-link ml-auto mr-2" href="/logout">Logout</a>
+        <a class="nav-link ml-auto mr-2 text-white" href="#">User: <%= currentUser.username %></a>
+        <a class="nav-link ml-auto mr-2 text-white" href="/settings">Settings</a>
+        <a class="nav-link ml-auto mr-2 text-white" href="/logout">Logout</a>
       </div>
       <% } %>
     </div>

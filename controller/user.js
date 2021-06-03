@@ -3,7 +3,9 @@ const util = require('util');
 
 module.exports = {
     landingPage(req, res, next) {
-        res.render('landing');
+        const { currentUser } = res.locals;
+        if(currentUser) res.redirect('/lists');
+        if(!currentUser) res.render('landing');
     },
     getRegister(req, res, next) {
         res.render('users/register');

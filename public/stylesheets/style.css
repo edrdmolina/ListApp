@@ -1,11 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700&display=swap');
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: linear-gradient(90deg, rgba(137, 1, 186, 0.531), rgba(255, 255, 0, 0.524));
+  font-family: Raleway, sans-serif;
+  background: linear-gradient(90deg, rgba(137, 1, 186, 0.531), rgba(255, 0, 0, 0.524));
   height: 100vh;
+  color: white;
 }
 
-a {
-  color: #00B7FF;
+.navbar-toggler-icon {
+  color: white;
+  word-break: break-word;
+}
+
+.logo {
+  font-weight: 700;
+  max-width: 50px;
 }
 
 .color-green {
@@ -18,6 +27,7 @@ a {
 
 .checked-off {
   text-decoration: line-through;
+  text-decoration-thickness: 4px;
 }
 
 thead {
@@ -25,10 +35,10 @@ thead {
 }
 
 .box {
-  min-height: 200px;
-  min-width: 200px;
-  max-width: 200px;
-  max-height: 200px;
+  min-height: 225px;
+  min-width: 225px;
+  max-width: 225px;
+  max-height: 225px;
   background-color: rgba(217, 174, 139, 0.271);
 }
 
