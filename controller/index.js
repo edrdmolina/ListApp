@@ -6,7 +6,6 @@ module.exports = {
         // pull user ID from logged in user.
         const { id } = res.locals.currentUser;
         const lists = await List.find({ user: { _id: id } }).populate('user');
-        console.log(lists);
         res.render('lists/index', { lists });
     },
     getNewList(req, res, next) {
@@ -18,7 +17,7 @@ module.exports = {
         newList.user = req.user._id;
         await newList.save();
         req.flash('success', 'New list has been added');
-        res.redirect('/lists');
+        res.redirect(`/lists/${newList._id}`);
     },
     async showList(req, res, next) {
         const { id } = req.params;
@@ -47,16 +46,14 @@ module.exports = {
         const { id } = req.params;
         if (req.body.deleteItems && req.body.deleteItems.length) {
             let deleteItems = req.body.deleteItems;
-            
-            deleteItems.forEach(async item => {
+            for (let item of deleteItems) {
                 await List.findByIdAndUpdate(id, {
-                    $pull: { items: item}
+                    $pull: { items: deleteItems}
                 });
-                await Item.findByIdAndDelete(item);
-            })
+                await Item.findByIdAndDelete(deleteItems);
+                req.flash('success', 'Succesffully deleted items');
+                return res.redirect(`/lists/${id}`);
+            }
         }
-        req.flash('success', 'Succesffully deleted multiple items');
-        res.redirect(`/lists/${id}`);
-    }
-
+    },
 }

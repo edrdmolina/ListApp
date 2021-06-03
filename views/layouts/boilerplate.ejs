@@ -8,11 +8,18 @@
     <!-- BOOTSTRAP 4.6 CSS -->
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
     <%- include('../partials/navbar') %> 
     <main>
-        <%- include('../partials/flash') %> 
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <%- include('../partials/flash') %> 
+                </div>
+            </div>
+        </div>
         <%- body %> 
     </main>
     

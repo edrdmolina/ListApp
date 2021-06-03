@@ -1,76 +1,108 @@
 <% layout('layouts/boilerplate') -%>
 
-<h1>SHOW ITEMS OF LIST</h1>
-
-<h2><%= list.title %></h2>
-<form action="/lists/<%= list.id %>?_method=DELETE" method="POST">
-    <button type="submit" class="btn btn-danger">DELETE LIST</button>
-</form>
-
 <div class="container">
-    <!-- TOP ITEM SUBMIT FORM -->
-    <div class="row">
-        <div class="col">
-            <form action="/lists/<%= list._id %>" method="POST">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="title" class="form-label">Item</label>
-                            <input type="text" id="title" name="title" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="quantity" class="form-label">Qty</label>
-                            <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" step="1">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                </div>
+    <div class="row text-center mt-3 pt-2">
+        <div class="col order-md-2">
+            <h2><%= list.title.toUpperCase() %></h2>
+        </div>
+        <div class="col-md-2 order-md-1 my-2">
+            <a class="btn btn-outline-secondary btn-sm" href="/lists">BACK</a>
+        </div>
+        <div class="col-md-2 order-md-3 my-2">
+            <form action="/lists/<%= list.id %>?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-outline-danger btn-sm">DELETE</button>
             </form>
         </div>
     </div>
-    <!-- LIST OF ITEMS -->
-    <form action="/lists/<%= list._id %>?_method=PUT" method="POST">
-        <% list.items.forEach(function(item, i) { %> 
-        <div class="row border-bottom">
-            <div class="col">
-                <p><%= item.title %></p>
-            </div>
-            <div class="col">
-                <p><%= item.quantity %></p>
-            </div>
-            <div class="col">
-                <input type="checkbox" name="deleteItems" id="item<%= i %>" value="<%= item._id %>">
-            </div>
-        </div>
-        <% }); %>
-        <button type="submit" class="btn btn-secondary">Delete checked off items</button>
-    </form>
-    <!-- BOTTOM ITEM SUBMIT FORM -->
-    <div class="row">
+    <div class="row mb-3">
         <div class="col">
             <form action="/lists/<%= list._id %>" method="POST">
-                <div class="row">
-                    <div class="col">
+                <div class="row pt-3 justify-content-center">
+                    <div class="col-4">
                         <div class="form-group">
-                            <label for="titleBottom" class="form-label">Item</label>
-                            <input type="text" id="titleBottom" name="title" class="form-control">
+                            <label for="title" class="form-label">Item</label>
+                            <input type="text" id="title" name="title" class="form-control shadow">
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                         <div class="form-group">
-                            <label for="quantityBottom" class="form-label">Qty</label>
-                            <input type="number" id="quantityBottom" name="quantity" class="form-control" value="1" min="1" step="1">
+                            <label for="quantity" class="form-label">Qty</label>
+                            <input type="number" id="quantity" name="quantity" class="form-control shadow" value="1" min="1" step="1">
                         </div>
                     </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary">Add</button>
+                    <div class="col-1 align-self-end pb-3">
+                        <button type="submit" class="btn btn-primary shadow">Add</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <table class="table table-lg shadow-lg">
+                <thead>
+                    <th scope="col">
+                        <h5 class="ml-4">ITEM</h5>
+                    </th>
+                    <th scope="col">
+                        <h5>QTY</h5>
+                    </th>
+                </thead>
+                <form action="/lists/<%= list._id %>?_method=PUT" method="POST">
+                    <tbody>
+                        <% list.items.forEach(function(item, i) { %>
+                        <tr>
+                            <td>
+                                <input class="d-none" type="checkbox" name="deleteItems" id="item<%= i %>" value="<%= item._id %>" data-checkbox>
+                                <label class="container-fluid mx-2" for="item<%= i %>">
+                                <h5><%= item.title %></h5>
+                                </label>
+                            </td>
+                            <td>
+                                <h5><%= item.quantity %></h5>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                <button type="submit" class="btn btn-outline-success shadow">Delete checked off items</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </form>
+            </table>
+        </div>
+    </div>
+</div>
+<% if (list.items.length > 10) { %>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col">
+            <form action="/lists/<%= list._id %>" method="POST">
+                <div class="row pt-3 justify-content-center">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="titleBottom" class="form-label">Item</label>
+                            <input type="text" id="titleBottom" name="title" class="form-control shadow">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="quantityBottom" class="form-label">Qty</label>
+                            <input type="number" id="quantityBottom" name="quantity" class="form-control shadow" value="1" min="1" step="1">
+                        </div>
+                    </div>
+                    <div class="col-1 align-self-end pb-3">
+                        <button type="submit" class="btn btn-primary shadow">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<% } %>
+<script src="/javascripts/crossOff.js"></script>

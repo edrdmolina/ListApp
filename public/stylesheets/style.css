@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: linear-gradient(90deg, rgba(137, 1, 186, 0.531), rgba(255, 255, 0, 0.524));
 }
 
 a {
@@ -12,4 +13,12 @@ a {
 
 .color-red {
   color: red;
+}
+
+.checked-off {
+  text-decoration: line-through;
+}
+
+thead {
+  background-color: rgba(255, 255, 255, 0.349);
 }
