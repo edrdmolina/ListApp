@@ -1,6 +1,7 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: linear-gradient(90deg, rgba(137, 1, 186, 0.531), rgba(255, 255, 0, 0.524));
+  height: 100vh;
 }
 
 a {
@@ -21,4 +22,32 @@ a {
 
 thead {
   background-color: rgba(255, 255, 255, 0.349);
+}
+
+.box {
+  min-height: 200px;
+  min-width: 200px;
+  max-width: 200px;
+  max-height: 200px;
+  background-color: rgba(217, 174, 139, 0.271);
+}
+
+.lists-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly; 
+}
+
+.lists-container a {
+  text-decoration: none;
+}
+
+.list-title {
+  border-bottom: 3px dashed white;
+  padding: 5px 0px;
+  color: rgb(255, 255, 255);
+}
+
+.fa-plus-square {
+  color: white;
 }

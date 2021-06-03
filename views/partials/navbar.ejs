@@ -1,5 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="/">Note List</a>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="/">
+      <i class="far fa-list-alt fa-2x text-white"></i>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -12,13 +14,13 @@
       <% } %>
       <% if(currentUser) { %>
       <div class="navbar-nav">
-        <a class="nav-link" href="/lists">Lists</a>
-        <a class="nav-link" href="/lists/new">New Lists</a>
+        <a class="nav-link ml-auto mr-2" href="/lists">Lists</a>
+        <a class="nav-link ml-auto mr-2" href="/lists/new">New Lists</a>
       </div>
       <div class="navbar-nav ml-auto">
-        <a class="nav-link" href="#"><%= currentUser.username %></a>
-        <a class="nav-link" href="/settings">Settings</a>
-        <a class="nav-link" href="/logout">Logout</a>
+        <a class="nav-link ml-auto mr-2" href="#">User: <%= currentUser.username %></a>
+        <a class="nav-link ml-auto mr-2" href="/settings">Settings</a>
+        <a class="nav-link ml-auto mr-2" href="/logout">Logout</a>
       </div>
       <% } %>
     </div>

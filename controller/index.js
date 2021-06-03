@@ -5,7 +5,15 @@ module.exports = {
     async getLists(req, res, next) {
         // pull user ID from logged in user.
         const { id } = res.locals.currentUser;
-        const lists = await List.find({ user: { _id: id } }).populate('user');
+        const lists = await List.find({ user: { _id: id } })
+            .populate('user')
+            .populate({
+                path: 'items',
+                options: {
+                    limit: 5,
+                    sort: { created: -1 },
+                },
+            }).exec()
         res.render('lists/index', { lists });
     },
     getNewList(req, res, next) {
