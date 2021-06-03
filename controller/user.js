@@ -40,9 +40,15 @@ module.exports = {
     async postLogin(req, res, next) {
         const { username, password } = req.body;
         const { user, error } = await User.authenticate()(username, password);
-        if (!user && error) return next(error);
+        if (!user && error) {
+            req.flash('error', 'Username or password is incorrect.');
+            return res.redirect('/login');
+        }
         req.login(user, function (err) {
-            if (err) return next(err);
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/login');
+            }
             req.flash('success', `Welcome back, ${username}!`);
             const redirectUrl = req.session.redirectTo || '/lists';
             res.redirect(redirectUrl);

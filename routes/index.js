@@ -2,28 +2,29 @@ const express = require('express');
 const router = express.Router();
 const {
     catchAsync,
+    isLoggedIn,
 } = require('../middleware')
 const list = require('../controller');
 
 // GET home index of list /lists/
-router.get('/', catchAsync(list.getLists));
+router.get('/', isLoggedIn, catchAsync(list.getLists));
 
 // GET new list /lists/new
-router.get('/new', (list.getNewList));
+router.get('/new', isLoggedIn, (list.getNewList));
 
 // POST new list
-router.post('/', catchAsync(list.postNewList))
+router.post('/', isLoggedIn, catchAsync(list.postNewList))
 
 // GET show list items /list/:id
-router.get('/:id', catchAsync(list.showList));
+router.get('/:id', isLoggedIn, catchAsync(list.showList));
 
 // POST item into list /list/:id
-router.post('/:id', catchAsync(list.postNewItem));
+router.post('/:id', isLoggedIn, catchAsync(list.postNewItem));
 
 // DELETE list
-router.delete('/:id', catchAsync(list.deleteList));
+router.delete('/:id', isLoggedIn, catchAsync(list.deleteList));
 
 // DELETE ITEM
-router.put('/:id', catchAsync(list.deleteItem));
+router.put('/:id', isLoggedIn, catchAsync(list.deleteItem));
 
 module.exports = router;
