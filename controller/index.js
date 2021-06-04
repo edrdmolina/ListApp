@@ -29,7 +29,14 @@ module.exports = {
     },
     async showList(req, res, next) {
         const { id } = req.params;
-        const list = await List.findById(id).populate('items')
+        // const options = { sort: ['items.title', 'asc' ] };
+        const list = await List.findById(id)
+            .populate({
+                path: 'items',
+                options: {
+                    sort: { title: 1 }
+                }
+            })
         res.render('lists/show', { list });
     },
     async postNewItem(req, res, next) {

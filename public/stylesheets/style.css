@@ -12,11 +12,6 @@ body {
   word-break: break-word;
 }
 
-.logo {
-  font-weight: 700;
-  max-width: 50px;
-}
-
 .color-green {
   color: green;
 }
