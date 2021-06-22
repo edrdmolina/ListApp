@@ -12,8 +12,7 @@ module.exports = {
     },
     async postRegister(req, res, next) {
         try {
-            const { email, username, 
-                    password, confirmPassword 
+            const { password, confirmPassword 
                 } = req.body;            
             if (password !== confirmPassword) {
                 req.flash('error', 'Passwords do not match!');
