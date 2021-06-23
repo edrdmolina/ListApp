@@ -41,34 +41,26 @@
                     <th scope="col">
                         <h5 class="ml-4">ITEM</h5>
                     </th>
-                    <th scope="col">
+                    <th scope="col" colspan="2">
                         <h5>QTY</h5>
                     </th>
                 </thead>
-                <form action="/lists/<%= list._id %>?_method=PUT" method="POST">
-                    <tbody>
-                        <% list.items.forEach(function(item, i) { %>
-                        <tr>
-                            <td>
-                                <input class="d-none" type="checkbox" name="deleteItems" id="item<%= i %>" value="<%= item._id %>" data-checkbox>
-                                <label class="container-fluid mx-2" for="item<%= i %>">
-                                <h5><%= item.title %></h5>
-                                </label>
-                            </td>
-                            <td>
-                                <h5><%= item.quantity %></h5>
-                            </td>
-                        </tr>
-                        <% }); %>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3" class="text-center">
-                                <button type="submit" class="btn btn-outline-success shadow">REMOVE CHECKED ITEMS</button>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </form>
+                <tbody>
+                    <% list.items.forEach(function(item, i) { %>
+                    <tr>
+                        <td>
+                            <h5><%= item.title %></h5>
+                        </td>
+                        <td>
+                            <h5><%= item.quantity %></h5>
+                        </td>
+                        <td>
+                            <!-- DELETE ITEM -->
+                            x
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
             </table>
         </div>
     </div>
@@ -125,4 +117,7 @@
         </div>
     </div>
 </div>
+<script>
+    const listId = '<%- list._id %>';
+</script>
 <script src="/javascripts/crossOff.js"></script>

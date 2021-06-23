@@ -29,7 +29,6 @@ module.exports = {
     },
     async showList(req, res, next) {
         const { id } = req.params;
-        // const options = { sort: ['items.title', 'asc' ] };
         const list = await List.findById(id)
             .populate({
                 path: 'items',
@@ -84,4 +83,22 @@ module.exports = {
             return res.redirect(`/lists/${id}`);
         }
     },
+    async getListApi(req, res, next) {
+        const { id } = req.params;
+        const list = await List.findById(id)
+            .populate({
+                path: 'items',
+                options: {
+                    sort: { title: 1 }
+                }
+            });
+        console.log(list);
+        res.json(list);
+    },
+    async putCheck(req, res, next) {
+        const { id } = req.params;
+        const item = await Item.findById(id);
+        console.log(item);
+        res.json(item);
+    }
 }
