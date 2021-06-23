@@ -9,6 +9,9 @@ const list = require('../controller');
 // GET home index of list /lists/
 router.get('/', isLoggedIn, catchAsync(list.getLists));
 
+// GET API home index of list /lists/
+router.get('/api', isLoggedIn, catchAsync(list.getListsJson));
+
 // GET new list /lists/new
 router.get('/new', isLoggedIn, (list.getNewList));
 

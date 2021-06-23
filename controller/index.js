@@ -16,6 +16,20 @@ module.exports = {
             }).exec()
         res.render('lists/index', { lists });
     },
+    async getListsJson(req, res, next) {
+        // pull user ID from logged in user.
+        const { id } = res.locals.currentUser;
+        const lists = await List.find({ user: { _id: id } })
+            .populate('user')
+            .populate({
+                path: 'items',
+                options: {
+                    limit: 5,
+                    sort: { created: -1 },
+                },
+            }).exec()
+        res.send(lists);
+    },
     getNewList(req, res, next) {
         res.render('lists/new');
     },
