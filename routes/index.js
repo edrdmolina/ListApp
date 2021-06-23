@@ -9,7 +9,7 @@ const list = require('../controller');
 // GET home index of list /lists/
 router.get('/', isLoggedIn, catchAsync(list.getLists));
 
-// GET API home index of list /lists/
+// * GET API home index of list /lists/
 router.get('/api', isLoggedIn, catchAsync(list.getListsJson));
 
 // GET new list /lists/new
@@ -21,14 +21,14 @@ router.post('/', isLoggedIn, catchAsync(list.postNewList))
 // GET show list items /list/:id
 router.get('/:id', isLoggedIn, catchAsync(list.showList));
 
-// GET list as JSON format /lists/api/:id
+// * GET list as JSON format /lists/api/:id
 router.get('/:id/api', isLoggedIn, catchAsync(list.getListApi));
 
 // POST item into list /list/:id
 router.post('/:id', isLoggedIn, catchAsync(list.postNewItem));
 
 // PUT item to check off /list/:id
-router.put('/:id/api/:itemId', catchAsync(list.putCheck));
+router.put('/:id/api/:itemId', isLoggedIn, catchAsync(list.putCheck));
 
 // DELETE list
 router.delete('/:id', isLoggedIn, catchAsync(list.deleteList));

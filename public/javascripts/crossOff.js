@@ -1,6 +1,6 @@
 // TODO send get req to api for json data ono whole list
 const apiUrl = `http://localhost:3000/lists/${listId}/api`;
-window.addEventListener('load', (e) => {
+window.addEventListener('DOMContentLoaded', (e) => {
     $.getJSON(apiUrl)
     .then(crossCrossed)
 })
