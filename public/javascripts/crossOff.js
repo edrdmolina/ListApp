@@ -1,8 +1,6 @@
 // TODO send get req to api for json data ono whole list
-const apiUrl = `http://localhost:3000/lists/${listId}/api`;
-window.addEventListener('DOMContentLoaded', (e) => {
-    $.getJSON(apiUrl)
-    .then(crossCrossed)
+window.addEventListener('load', (e) => {
+    crossCrossed(list)
 })
 
 const crossCrossed = (list) => {
@@ -15,7 +13,6 @@ const crossCrossed = (list) => {
         }
     })
 }
-
 
 // TODO send put req to api and change boolean value of checked
 const itemsTitle = document.querySelectorAll('[data-item-title]');
