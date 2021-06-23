@@ -6,9 +6,10 @@ window.addEventListener('load', (e) => {
 })
 
 const crossCrossed = (list) => {
-    list.items.forEach(item => {
+    list.items.forEach((item, i) => {
         if(item.checked === true) {
             $(`#${item._id}`).addClass('checked-off')
+            $(`#item${i}`).attr('checked', 'checked')
         } else if (item.checked === false) {
             $(`#${item._id}`).removeClass('checked-off')
         }

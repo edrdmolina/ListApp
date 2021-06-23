@@ -41,26 +41,34 @@
                     <th scope="col">
                         <h5 class="ml-4">ITEM</h5>
                     </th>
-                    <th scope="col" colspan="2">
+                    <th scope="col">
                         <h5>QTY</h5>
                     </th>
                 </thead>
+                <form action="/lists/<%= list._id %>?_method=PUT" method="POST">
                 <tbody>
                     <% list.items.forEach(function(item, i) { %>
                     <tr>
                         <td>
-                            <h5 data-item-title id="<%= item._id %>"><%= item.title %></h5>
+                            <input class="d-none" type="checkbox" name="deleteItems" id="item<%= i %>" value="<%= item._id %>" data-checkbox>
+                            <label class="container-fluid mx-2" for="item<%= i %>">
+                                <h5 data-item-title id="<%= item._id %>"><%= item.title %></h5>
+                            </label>
                         </td>
                         <td>
                             <h5><%= item.quantity %></h5>
                         </td>
-                        <td>
-                            <!-- DELETE ITEM -->
-                            x
-                        </td>
                     </tr>
                     <% }); %>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <button type="submit" class="btn btn-outline-success shadow">REMOVE CHECKED ITEMS</button>
+                        </td>
+                    </tr>
+                </tfoot>
+                </form>
             </table>
         </div>
     </div>
