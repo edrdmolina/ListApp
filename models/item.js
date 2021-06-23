@@ -8,6 +8,10 @@ const ItemSchema = new Schema({
         type: String,
         required: true
     },
+    checked: {
+        type: Boolean,
+        default: false,
+    },
     quantity: Number,
     user: {
         type: Schema.Types.ObjectId,

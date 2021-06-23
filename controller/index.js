@@ -16,6 +16,20 @@ module.exports = {
             }).exec()
         res.render('lists/index', { lists });
     },
+    async getListsJson(req, res, next) {
+        // pull user ID from logged in user.
+        const { id } = res.locals.currentUser;
+        const lists = await List.find({ user: { _id: id } })
+            .populate('user')
+            .populate({
+                path: 'items',
+                options: {
+                    limit: 5,
+                    sort: { created: -1 },
+                },
+            }).exec()
+        res.send(lists);
+    },
     getNewList(req, res, next) {
         res.render('lists/new');
     },
@@ -29,7 +43,6 @@ module.exports = {
     },
     async showList(req, res, next) {
         const { id } = req.params;
-        // const options = { sort: ['items.title', 'asc' ] };
         const list = await List.findById(id)
             .populate({
                 path: 'items',
@@ -80,8 +93,30 @@ module.exports = {
                 return res.redirect(`/lists/${id}`);
             }
         } else {
-            console.log('deleteItems is empty therefore undefined')
+            // console.log('deleteItems is empty therefore undefined')
             return res.redirect(`/lists/${id}`);
         }
     },
+    async getListApi(req, res, next) {
+        const { id } = req.params;
+        const list = await List.findById(id)
+            .populate({
+                path: 'items',
+                options: {
+                    sort: { title: 1 }
+                }
+            });
+        res.send(list);
+    },
+    async putCheck(req, res, next) {
+        const { itemId } = req.params;
+        const item = await Item.findById(itemId);
+        if(item.checked === true) {
+            item.checked = false;
+        } else if(item.checked === false) {
+            item.checked = true;
+        }
+        item.save();
+        res.send(item);
+    }
 }

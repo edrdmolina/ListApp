@@ -46,28 +46,28 @@
                     </th>
                 </thead>
                 <form action="/lists/<%= list._id %>?_method=PUT" method="POST">
-                    <tbody>
-                        <% list.items.forEach(function(item, i) { %>
-                        <tr>
-                            <td>
-                                <input class="d-none" type="checkbox" name="deleteItems" id="item<%= i %>" value="<%= item._id %>" data-checkbox>
-                                <label class="container-fluid mx-2" for="item<%= i %>">
-                                <h5><%= item.title %></h5>
-                                </label>
-                            </td>
-                            <td>
-                                <h5><%= item.quantity %></h5>
-                            </td>
-                        </tr>
-                        <% }); %>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3" class="text-center">
-                                <button type="submit" class="btn btn-outline-success shadow">REMOVE CHECKED ITEMS</button>
-                            </td>
-                        </tr>
-                    </tfoot>
+                <tbody>
+                    <% list.items.forEach(function(item, i) { %>
+                    <tr>
+                        <td>
+                            <input class="d-none" type="checkbox" name="deleteItems" id="item<%= i %>" value="<%= item._id %>" data-checkbox>
+                            <label class="container-fluid mx-2" for="item<%= i %>">
+                                <h5 data-item-title id="<%= item._id %>"><%= item.title %></h5>
+                            </label>
+                        </td>
+                        <td>
+                            <h5><%= item.quantity %></h5>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <button type="submit" class="btn btn-outline-success shadow">REMOVE CHECKED ITEMS</button>
+                        </td>
+                    </tr>
+                </tfoot>
                 </form>
             </table>
         </div>
@@ -125,4 +125,7 @@
         </div>
     </div>
 </div>
+<script>
+    const listId = '<%- list._id %>';
+</script>
 <script src="/javascripts/crossOff.js"></script>
