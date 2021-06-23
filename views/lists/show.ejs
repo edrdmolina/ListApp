@@ -49,7 +49,7 @@
                     <% list.items.forEach(function(item, i) { %>
                     <tr>
                         <td>
-                            <h5><%= item.title %></h5>
+                            <h5 data-item-title id="<%= item._id %>"><%= item.title %></h5>
                         </td>
                         <td>
                             <h5><%= item.quantity %></h5>

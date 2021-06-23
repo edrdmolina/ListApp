@@ -25,7 +25,7 @@ router.get('/:id/api', isLoggedIn, catchAsync(list.getListApi));
 router.post('/:id', isLoggedIn, catchAsync(list.postNewItem));
 
 // PUT item to check off /list/:id
-router.put('/:id/check', isLoggedIn, catchAsync(list.putCheck));
+router.put('/:id/api/:itemId', isLoggedIn, catchAsync(list.putCheck));
 
 // DELETE list
 router.delete('/:id', isLoggedIn, catchAsync(list.deleteList));

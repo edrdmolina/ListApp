@@ -79,7 +79,7 @@ module.exports = {
                 return res.redirect(`/lists/${id}`);
             }
         } else {
-            console.log('deleteItems is empty therefore undefined')
+            // console.log('deleteItems is empty therefore undefined')
             return res.redirect(`/lists/${id}`);
         }
     },
@@ -92,13 +92,17 @@ module.exports = {
                     sort: { title: 1 }
                 }
             });
-        console.log(list);
-        res.json(list);
+        res.send(list);
     },
     async putCheck(req, res, next) {
-        const { id } = req.params;
-        const item = await Item.findById(id);
-        console.log(item);
-        res.json(item);
+        const { itemId } = req.params;
+        const item = await Item.findById(itemId);
+        if(item.checked === true) {
+            item.checked = false;
+        } else if(item.checked === false) {
+            item.checked = true;
+        }
+        item.save();
+        res.send(item);
     }
 }
